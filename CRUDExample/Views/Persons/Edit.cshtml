@@ -7,7 +7,7 @@
 
 <div class="center-box">
     <form asp-controller="Persons" asp-action="Edit" method="post">
-        <input type="hidden" asp-for="PersonId"/>
+        <input type="hidden" asp-for="PersonId" />
         @*PersonName*@
         <div class="form-field flex">
             <div class="w-25">
@@ -34,7 +34,7 @@
                 <label asp-for="DateOfBirth" class="form-label pt">Date of Birth</label>
             </div>
             <div class="flex-1">
-                <input asp-for="DateOfBirth" class="form-input"/>
+                <input asp-for="DateOfBirth" class="form-input" />
                 <span asp-validation-for="DateOfBirth" class="text-red"></span>
             </div>
         </div>
@@ -47,7 +47,7 @@
                 @{
                     string[] genders = (string[])Enum.GetNames(typeof(GenderOptions));
                 }
-                @foreach(string gender in genders) {
+                @foreach (string gender in genders) {
                     <input type="radio" asp-for="Gender" value="@gender" class="ml" />
                     <label for="@gender">@gender</label>
                 }
@@ -79,7 +79,7 @@
         @*ReceiveNewsLetters*@
         <div class="form-field flex">
             <div class="w-25">
-               </div>
+            </div>
             <div class="flex-1">
                 <input asp-for="ReceiveNewsLetters" value="true" />
                 <label asp-for="ReceiveNewsLetters" class="form-label">Receive News Letters</label>
@@ -91,14 +91,14 @@
             <div class="w-25">
             </div>
             <div class="flex-1">
-            <button class="button button-green-back">Update</button>
-            <div asp-validation-summary="All" class="text-red"></div>
-                @if(ViewBag.Errors != null) {
+                <button class="button button-green-back">Update</button>
+                <div asp-validation-summary="All" class="text-red"></div>
+                @if (ViewBag.Errors != null) {
                     <div class="text-red ml">
                         <ul>
-                        @foreach (string error in ViewBag.Errors) {
-                            <li class="ml">@error</li>
-                        }
+                            @foreach (string error in ViewBag.Errors) {
+                                <li class="ml">@error</li>
+                            }
                         </ul>
                     </div>
                 }

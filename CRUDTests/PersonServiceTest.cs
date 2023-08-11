@@ -57,7 +57,7 @@ namespace CRUDTests {
             //    //Act
             //    await _personService.AddPerson(personAddRequest);
             //});
-            
+
             //act
             Func<Task> action = async () => {
                 await _personService.AddPerson(personAddRequest);
@@ -324,7 +324,7 @@ namespace CRUDTests {
             //for (int i = 0; i < person_response_list_from_add.Count; i++) {
             //    Assert.Equal(person_response_list_from_add[i], person_response_list_from_sort[i]);
             //}
-            person_response_list_from_sort.Should().BeInDescendingOrder(temp=>temp.PersonName);
+            person_response_list_from_sort.Should().BeInDescendingOrder(temp => temp.PersonName);
         }
         #endregion
 
@@ -340,7 +340,7 @@ namespace CRUDTests {
             //    await _personService.UpdatePerson(person_update_request);
             //});
             Func<Task> action = async () => {
-              await  _personService.UpdatePerson(person_update_request);
+                await _personService.UpdatePerson(person_update_request);
             };
             await action.Should().ThrowAsync<ArgumentNullException>();
         }

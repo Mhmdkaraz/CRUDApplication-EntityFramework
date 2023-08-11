@@ -6,8 +6,7 @@ namespace CRUDExample.Controllers {
     public class CountriesController : Controller {
         private readonly ICountriesService _countriesService;
 
-        public CountriesController(ICountriesService countriesService)
-        {
+        public CountriesController(ICountriesService countriesService) {
             _countriesService = countriesService;
         }
         [Route("[action]")]
@@ -29,7 +28,7 @@ namespace CRUDExample.Controllers {
             int countriesCountInserted = await _countriesService.UploadCountriesFromExcelFile(excelFile);
             ViewBag.Message = $"{countriesCountInserted} Countries Uploaded";
             return View();
-            
+
         }
     }
 }

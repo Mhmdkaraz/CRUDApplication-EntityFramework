@@ -7,10 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Entities {
-    public class ApplicationDbContext:DbContext {
-        public ApplicationDbContext(DbContextOptions options):base(options)
-        {
-            
+    public class ApplicationDbContext : DbContext {
+        public ApplicationDbContext(DbContextOptions options) : base(options) {
+
         }
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<Person> Persons { get; set; }
@@ -25,8 +24,8 @@ namespace Entities {
             string countriesJson = System.IO.File.ReadAllText("countries.json");
             //deserialize : json to object
             List<Country> countries = System.Text.Json.JsonSerializer.Deserialize<List<Country>>(countriesJson);
-            
-            foreach(Country country in countries)
+
+            foreach (Country country in countries)
                 modelBuilder.Entity<Country>().HasData(country);
             //modelBuilder.Entity<Country>().HasData(new Country() {
             //    CountryId = Guid.NewGuid(), CountryName = "Sample"
@@ -35,7 +34,7 @@ namespace Entities {
             //Seed to Persons
             string personsJson = System.IO.File.ReadAllText("persons.json");
             List<Person> persons = System.Text.Json.JsonSerializer.Deserialize<List<Person>>(personsJson);
-            foreach(Person person in persons)
+            foreach (Person person in persons)
                 modelBuilder.Entity<Person>().HasData(person);
 
             //Fluent API

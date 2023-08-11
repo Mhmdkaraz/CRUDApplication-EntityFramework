@@ -10,13 +10,13 @@ namespace ServiceContracts.DTO {
     /// Acts as a DTO for inserting a new person
     /// </summary>
     public class PersonAddRequest {
-        [Required(ErrorMessage ="Person Name can't be blank")]
+        [Required(ErrorMessage = "Person Name can't be blank")]
         public string? PersonName { get; set; }
         [Required(ErrorMessage = "Email value can't be blank")]
         [EmailAddress(ErrorMessage = "Email value should be a valid email")]
         [DataType(DataType.EmailAddress)]
         public string? Email { get; set; }
-        
+
         [DataType(DataType.Date)]
         public DateTime? DateOfBirth { get; set; }
 

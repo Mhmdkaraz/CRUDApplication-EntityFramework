@@ -31,8 +31,8 @@ namespace ServiceContracts.DTO {
         /// with the specified parameter object
         /// </returns>
         public override bool Equals(object? obj) {
-            if(obj == null) return false; 
-            if(obj.GetType() != typeof(PersonResponse)) return false;
+            if (obj == null) return false;
+            if (obj.GetType() != typeof(PersonResponse)) return false;
             PersonResponse person = (PersonResponse)obj;
             return this.PersonId == person.PersonId && PersonName == person.PersonName
                 && Email == person.Email && DateOfBirth == person.DateOfBirth && Gender == person.Gender
@@ -54,7 +54,7 @@ namespace ServiceContracts.DTO {
                 PersonName = PersonName,
                 Email = Email,
                 DateOfBirth = DateOfBirth,
-                Gender = (GenderOptions)Enum.Parse(typeof(GenderOptions),Gender,true),
+                Gender = (GenderOptions)Enum.Parse(typeof(GenderOptions), Gender, true),
                 CountryId = CountryId,
                 Address = Address,
                 ReceiveNewsLetters = ReceiveNewsLetters,

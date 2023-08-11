@@ -153,7 +153,6 @@ namespace CRUDTests {
             //Assert
             //Assert.Equal(country_response_from_add_request, country_response_from_get);
             country_response_from_get.Should().BeEquivalentTo(country_response_from_add_request);
-
         }
         #endregion
 

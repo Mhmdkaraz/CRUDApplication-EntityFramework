@@ -8,14 +8,14 @@
 
 <div class="center-box">
     <form asp-controller="Persons" asp-action="Delete" method="post">
-        <input type="hidden" asp-for="PersonId"/>
+        <input type="hidden" asp-for="PersonId" />
         @*PersonName*@
         <div class="form-field flex">
             <div class="w-25">
                 <label asp-for="PersonName" class="form-label pt">Person Name</label>
             </div>
             <div class="flex-1">
-                <input asp-for="PersonName" class="form-input" disabled/>
+                <input asp-for="PersonName" class="form-input" disabled />
                 <span asp-validation-for="PersonName" class="text-red"></span>
             </div>
         </div>
@@ -25,7 +25,7 @@
                 <label asp-for="Email" class="form-label pt">Email</label>
             </div>
             <div class="flex-1">
-                <input asp-for="Email" class="form-input" disabled/>
+                <input asp-for="Email" class="form-input" disabled />
                 <span asp-validation-for="Email" class="text-red"></span>
             </div>
         </div>
@@ -34,14 +34,14 @@
             <div class="w-25">
             </div>
             <div class="flex-1">
-            <button class="button button-red-back">Delete</button>
-            <div asp-validation-summary="All" class="text-red"></div>
-                @if(ViewBag.Errors != null) {
+                <button class="button button-red-back">Delete</button>
+                <div asp-validation-summary="All" class="text-red"></div>
+                @if (ViewBag.Errors != null) {
                     <div class="text-red ml">
                         <ul>
-                        @foreach (string error in ViewBag.Errors) {
-                            <li class="ml">@error</li>
-                        }
+                            @foreach (string error in ViewBag.Errors) {
+                                <li class="ml">@error</li>
+                            }
                         </ul>
                     </div>
                 }
