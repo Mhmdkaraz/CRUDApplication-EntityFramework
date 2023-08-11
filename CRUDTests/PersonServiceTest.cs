@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 using Xunit.Abstractions;
+using AutoFixture;
 
 namespace CRUDTests {
     public class PersonServiceTest {
@@ -16,9 +17,11 @@ namespace CRUDTests {
         private readonly IPersonsService _personService;
         private readonly ICountriesService _countriesService;
         private readonly ITestOutputHelper _testOutputHelper;
+        private readonly IFixture _fixture;
 
         //constructor
-        public PersonServiceTest(ITestOutputHelper testOutputHelper) {
+        public PersonServiceTest(ITestOutputHelper testOutputHelper, IFixture fixture) {
+            _fixture = fixture;
             var countriesInitialData = new List<Country>() { };
             var personsInitialData = new List<Person>() { };
 
@@ -40,6 +43,7 @@ namespace CRUDTests {
             _personService = new PersonsService(dbContext, _countriesService);
 
             _testOutputHelper = testOutputHelper;
+            _fixture = fixture;
         }
 
         #region AddPerson
@@ -72,11 +76,7 @@ namespace CRUDTests {
         [Fact]
         public async Task AddPerson_ProperPersonDetails() {
             //Arrange
-            PersonAddRequest? personAddRequest = new PersonAddRequest() {
-                PersonName = "Person name ...", Email = "person@example.com", Address = "sample address",
-                CountryId = Guid.NewGuid(), Gender = GenderOptions.Male, DateOfBirth = DateTime.Parse("2000-01-01"),
-                ReceiveNewsLetters = true
-            };
+            PersonAddRequest? personAddRequest = _fixture.Create<PersonAddRequest>();
             //Act
             PersonResponse person_response_from_add = await _personService.AddPerson(personAddRequest);
             List<PersonResponse> person_list = await _personService.GetAllPersons();
