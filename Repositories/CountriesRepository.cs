@@ -18,12 +18,12 @@ namespace Repositories {
             return await _db.Countries.ToListAsync();
         }
 
-        public Task<Country?> GetCountryByCountryId(Guid countryId) {
-            throw new NotImplementedException();
+        public async Task<Country?> GetCountryByCountryId(Guid countryId) {
+            return await _db.Countries.FirstOrDefaultAsync(temp => temp.CountryId == countryId);
         }
 
         public Task<Country?> GetCountryByCountryName(string countryName) {
-            throw new NotImplementedException();
+            return _db.Countries.FirstOrDefaultAsync(temp=>temp.CountryName == countryName);
         }
     }
 }
