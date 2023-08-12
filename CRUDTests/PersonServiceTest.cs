@@ -41,7 +41,7 @@ namespace CRUDTests {
             //Create services based on mocked DbContext object
             _countriesService = new CountriesService(null);
 
-            _personService = new PersonsService(dbContext, _countriesService);
+            _personService = new PersonsService(null);
 
             _testOutputHelper = testOutputHelper;
         }
