@@ -19,7 +19,6 @@ namespace CRUDTests {
     public class PersonServiceTest {
         //private fields
         private readonly IPersonsService _personService;
-        private readonly ICountriesService _countriesService;
         private readonly Mock<IPersonsRepository> _personsRepositoryMock;
         private readonly IPersonsRepository _personsRepository;
         private readonly ITestOutputHelper _testOutputHelper;
@@ -30,27 +29,8 @@ namespace CRUDTests {
             _fixture = new Fixture();
             _personsRepositoryMock = new Mock<IPersonsRepository>();
             _personsRepository = _personsRepositoryMock.Object;
-
-            var countriesInitialData = new List<Country>() { };
-            var personsInitialData = new List<Person>() { };
-
-            //Craete mock for DbContext
-            DbContextMock<ApplicationDbContext> dbContextMock = new DbContextMock<ApplicationDbContext>(
-              new DbContextOptionsBuilder<ApplicationDbContext>().Options
-             );
-
-            //Access Mock DbContext object
-            ApplicationDbContext dbContext = dbContextMock.Object;
-
-            //Create mocks for DbSets'
-            dbContextMock.CreateDbSetMock(temp => temp.Countries, countriesInitialData);
-            dbContextMock.CreateDbSetMock(temp => temp.Persons, personsInitialData);
-
             //Create services based on mocked DbContext object
-            _countriesService = new CountriesService(null);
-
             _personService = new PersonsService(_personsRepository);
-
             _testOutputHelper = testOutputHelper;
         }
 
