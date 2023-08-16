@@ -5,15 +5,22 @@ using RepositoryContracts;
 using ServiceContracts;
 using ServiceContracts.DTO;
 using Services;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //Logging
-builder.Host.ConfigureLogging(loggingProvider => {
-    loggingProvider.ClearProviders();
-    loggingProvider.AddConsole();
-    loggingProvider.AddDebug();
-    loggingProvider.AddEventLog();
+//builder.Host.ConfigureLogging(loggingProvider => {
+//    loggingProvider.ClearProviders();
+//    loggingProvider.AddConsole();
+//    loggingProvider.AddDebug();
+//    loggingProvider.AddEventLog();
+//});
+
+//Serilog
+builder.Host.UseSerilog((HostBuilderContext context, IServiceProvider services, LoggerConfiguration loggerConfiguration) => {
+    loggerConfiguration.ReadFrom.Configuration(context.Configuration) //read counfiguration settings from built-in IConfiguration
+    .ReadFrom.Services(services); // read out current app's services and make them available to serilog
 });
 
 builder.Services.AddControllersWithViews();
