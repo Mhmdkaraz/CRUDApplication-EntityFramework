@@ -14,6 +14,9 @@ using FluentAssertions;
 using RepositoryContracts;
 using Moq;
 using System.Linq.Expressions;
+using Serilog.Extensions.Hosting;
+using Serilog;
+using Microsoft.Extensions.Logging;
 
 namespace CRUDTests {
     public class PersonServiceTest {
@@ -29,8 +32,10 @@ namespace CRUDTests {
             _fixture = new Fixture();
             _personsRepositoryMock = new Mock<IPersonsRepository>();
             _personsRepository = _personsRepositoryMock.Object;
+            var diagnosticContextMock = new Mock<IDiagnosticContext>();
+            var loggerMock = new Mock<ILogger<PersonsService>>();
             //Create services based on mocked DbContext object
-            _personService = new PersonsService(_personsRepository);
+            _personService = new PersonsService(_personsRepository,loggerMock.Object,diagnosticContextMock.Object);
             _testOutputHelper = testOutputHelper;
         }
 
