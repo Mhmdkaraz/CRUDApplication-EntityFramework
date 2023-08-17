@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Azure;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -26,5 +27,12 @@ namespace Entities {
 
         [ForeignKey("CountryId")]
         public virtual Country? Country { get; set; }
+
+        public override string ToString() {
+            return $"Person Id: {PersonId}, Person Name: {PersonName}," +
+                $"Email: {Email}, Date of Birth: {DateOfBirth?.ToString("dd MM yyyy")}, " +
+                $"Gender: {Gender}, CountryId: {CountryId}, Country: {Country}, Address: {Address}, " +
+                $"Receive News Letters: {ReceiveNewsLetters}";
+        }
     }
 }
