@@ -8,6 +8,8 @@ using ServiceContracts.Enums;
 
 namespace CRUDExample.Controllers {
     [Route("[controller]")]
+    [TypeFilter(typeof(ResponseHeaderActionFilter), Arguments = new object[] {
+            "MyKey-FromController","MyValue-FromController" },Order = 2)]
     public class PersonsController : Controller {
         //private fields
         private readonly IPersonsService _personsService;
@@ -21,6 +23,8 @@ namespace CRUDExample.Controllers {
         [Route("[action]")]
         [Route("/")]
         [TypeFilter(typeof(PersonsListActionFilter))]
+        [TypeFilter(typeof(ResponseHeaderActionFilter),Arguments = new object[] {
+            "MyKey-FromAction","MyValue-FromAction" },Order = 1)]
         public async Task<IActionResult> Index(string searchBy, string searchString, string sortBy = nameof(PersonResponse.PersonName), SortOrderOptions sortOrder = SortOrderOptions.ASC) {
             _logger.LogInformation("Index action method of PersonsController");
             _logger.LogDebug($"searchBy: {searchBy}, searchString: {searchString}, sortBy: {sortBy}, sortOrder: {sortOrder}");
@@ -47,6 +51,8 @@ namespace CRUDExample.Controllers {
         //Executes when the user clicks on "Create Person" hyperlink (while opening the create view)
         [Route("[action]")]
         [HttpGet]
+        [TypeFilter(typeof(ResponseHeaderActionFilter), Arguments = new object[] {
+            "MyKey-FromAction","MyValue-FromAction" })]
         public async Task<IActionResult> Create() {
             List<CountryResponse> countries = await _countriesService.GetAllCountries();
             ViewBag.Countries = countries.Select(temp => new SelectListItem() {

@@ -6,6 +6,7 @@ using ServiceContracts;
 using ServiceContracts.DTO;
 using Services;
 using Serilog;
+using CRUDExample.Filters.ActionFilters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +24,13 @@ builder.Host.UseSerilog((HostBuilderContext context, IServiceProvider services, 
     .ReadFrom.Services(services); // read out current app's services and make them available to serilog
 });
 
-builder.Services.AddControllersWithViews();
+
+//it adds controllers and views as services
+builder.Services.AddControllersWithViews(options => {
+    //options.Filters.Add<ResponseHeaderActionFilter>(); cannot add parameters
+    var logger = builder.Services.BuildServiceProvider().GetRequiredService<ILogger<ResponseHeaderActionFilter>>();
+    options.Filters.Add(new ResponseHeaderActionFilter(logger, "My-Key-From-Global", "My-Value-From-Global"));
+});
 //add services into Ioc Container
 
 builder.Services.AddScoped<ICountriesService, CountriesService>();
@@ -52,7 +59,7 @@ app.UseHttpLogging();
 //app.Logger.LogError("error-message");
 //app.Logger.LogCritical("critical-message");
 
-if (builder.Environment.IsEnvironment("Test")==false)
+if (builder.Environment.IsEnvironment("Test") == false)
     Rotativa.AspNetCore.RotativaConfiguration.Setup("wwwroot", wkhtmltopdfRelativePath: "Rotativa");
 
 app.UseStaticFiles();
