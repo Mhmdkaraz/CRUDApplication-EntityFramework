@@ -1,16 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace CRUDExample.Filters.ActionFilters {
-    public class ResponseHeaderActionFilter : IActionFilter {
+    public class ResponseHeaderActionFilter : IActionFilter, IOrderedFilter {
         private readonly ILogger<ResponseHeaderActionFilter> _logger;
         private readonly string Key;
         private readonly string Value;
 
-        public ResponseHeaderActionFilter(ILogger<ResponseHeaderActionFilter> logger, string key, string value) {
+        public int Order { get; set; }
+
+
+        public ResponseHeaderActionFilter(ILogger<ResponseHeaderActionFilter> logger, string key, string value, int order) {
             _logger = logger;
             Key = key;
             Value = value;
+            Order = order;
         }
+
 
         //After
         public void OnActionExecuted(ActionExecutedContext context) {

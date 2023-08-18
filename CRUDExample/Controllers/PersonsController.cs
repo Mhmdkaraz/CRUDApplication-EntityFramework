@@ -9,7 +9,7 @@ using ServiceContracts.Enums;
 namespace CRUDExample.Controllers {
     [Route("[controller]")]
     [TypeFilter(typeof(ResponseHeaderActionFilter), Arguments = new object[] {
-            "MyKey-FromController","MyValue-FromController" },Order = 2)]
+            "MyKey-FromController","MyValue-FromController" ,3}, Order = 3)]
     public class PersonsController : Controller {
         //private fields
         private readonly IPersonsService _personsService;
@@ -22,9 +22,9 @@ namespace CRUDExample.Controllers {
         }
         [Route("[action]")]
         [Route("/")]
-        [TypeFilter(typeof(PersonsListActionFilter))]
-        [TypeFilter(typeof(ResponseHeaderActionFilter),Arguments = new object[] {
-            "MyKey-FromAction","MyValue-FromAction" },Order = 1)]
+        [TypeFilter(typeof(PersonsListActionFilter), Order = 4)]
+        [TypeFilter(typeof(ResponseHeaderActionFilter), Arguments = new object[] {
+            "MyKey-FromAction", "MyValue-FromAction", 1}, Order = 1)]
         public async Task<IActionResult> Index(string searchBy, string searchString, string sortBy = nameof(PersonResponse.PersonName), SortOrderOptions sortOrder = SortOrderOptions.ASC) {
             _logger.LogInformation("Index action method of PersonsController");
             _logger.LogDebug($"searchBy: {searchBy}, searchString: {searchString}, sortBy: {sortBy}, sortOrder: {sortOrder}");
