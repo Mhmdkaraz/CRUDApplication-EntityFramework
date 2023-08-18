@@ -1,4 +1,5 @@
 ﻿using CRUDExample.Filters.ActionFilters;
+using CRUDExample.Filters.ResourceFilters;
 using CRUDExample.Filters.ResultFilters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -67,6 +68,7 @@ namespace CRUDExample.Controllers {
         [Route("[action]")]
         [HttpPost]
         [TypeFilter(typeof(PersonCreateAndEditPostActionFilter))]
+        [TypeFilter(typeof(FeautureDisabledResourceFilter),Arguments = new object[] {false})]
         public async Task<IActionResult> Create(PersonAddRequest personRequest) {
             //if (!ModelState.IsValid) {
             //    List<CountryResponse> countries = await _countriesService.GetAllCountries();
