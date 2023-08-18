@@ -52,7 +52,7 @@ namespace CRUDExample.Controllers {
         [Route("[action]")]
         [HttpGet]
         [TypeFilter(typeof(ResponseHeaderActionFilter), Arguments = new object[] {
-            "MyKey-FromAction","MyValue-FromAction" })]
+            "MyKey-FromAction","MyValue-FromAction",4 })]
         public async Task<IActionResult> Create() {
             List<CountryResponse> countries = await _countriesService.GetAllCountries();
             ViewBag.Countries = countries.Select(temp => new SelectListItem() {
@@ -64,16 +64,17 @@ namespace CRUDExample.Controllers {
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<IActionResult> Create(PersonAddRequest personAddRequest) {
-            if (!ModelState.IsValid) {
-                List<CountryResponse> countries = await _countriesService.GetAllCountries();
-                ViewBag.Countries = countries.Select(temp => new SelectListItem() {
-                    Text = temp.CountryName, Value = temp.CountryId.ToString()
-                });
-                ViewBag.Errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-                return View(personAddRequest);
-            }
-            PersonResponse personResponse = await _personsService.AddPerson(personAddRequest);
+        [TypeFilter(typeof(PersonCreateAndEditPostActionFilter))]
+        public async Task<IActionResult> Create(PersonAddRequest personRequest) {
+            //if (!ModelState.IsValid) {
+            //    List<CountryResponse> countries = await _countriesService.GetAllCountries();
+            //    ViewBag.Countries = countries.Select(temp => new SelectListItem() {
+            //        Text = temp.CountryName, Value = temp.CountryId.ToString()
+            //    });
+            //    ViewBag.Errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+            //    return View(personRequest);
+            //}
+            PersonResponse personResponse = await _personsService.AddPerson(personRequest);
             return RedirectToAction("Index", "Persons");
         }
 
@@ -95,22 +96,24 @@ namespace CRUDExample.Controllers {
 
         [Route("[action]/{personId}")]
         [HttpPost]
-        public async Task<IActionResult> Edit(PersonUpdateRequest personUpdateRequest) {
-            PersonResponse? personResponse = await _personsService.GetPersonByPersonId(personUpdateRequest.PersonId);
+        [TypeFilter(typeof(PersonCreateAndEditPostActionFilter))]
+        public async Task<IActionResult> Edit(PersonUpdateRequest personRequest) {
+            PersonResponse? personResponse = await _personsService.GetPersonByPersonId(personRequest.PersonId);
             if (personResponse == null) {
                 return RedirectToAction("Index", "Persons");
             }
-            if (ModelState.IsValid) {
-                PersonResponse updatedPerson = await _personsService.UpdatePerson(personUpdateRequest);
+            //if (ModelState.IsValid) {
+                PersonResponse updatedPerson = await _personsService.UpdatePerson(personRequest);
                 return RedirectToAction("Index", "Persons");
-            } else {
-                List<CountryResponse> countries = await _countriesService.GetAllCountries();
-                ViewBag.Countries = countries.Select(temp => new SelectListItem() {
-                    Text = temp.CountryName, Value = temp.CountryId.ToString()
-                });
-                ViewBag.Errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
-                return View(personResponse.ToPersonUpdateRequest());
-            }
+            //} 
+            //else {
+            //    List<CountryResponse> countries = await _countriesService.GetAllCountries();
+            //    ViewBag.Countries = countries.Select(temp => new SelectListItem() {
+            //        Text = temp.CountryName, Value = temp.CountryId.ToString()
+            //    });
+            //    ViewBag.Errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
+            //    return View(personResponse.ToPersonUpdateRequest());
+            //}
         }
 
         [Route("[action]/{personId}")]
