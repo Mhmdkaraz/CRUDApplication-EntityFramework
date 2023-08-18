@@ -1,4 +1,5 @@
 ﻿using CRUDExample.Filters.ActionFilters;
+using CRUDExample.Filters.ResultFilters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Rotativa.AspNetCore;
@@ -20,11 +21,12 @@ namespace CRUDExample.Controllers {
             _countriesService = countriesService;
             _logger = logger;
         }
+
         [Route("[action]")]
         [Route("/")]
         [TypeFilter(typeof(PersonsListActionFilter), Order = 4)]
-        [TypeFilter(typeof(ResponseHeaderActionFilter), Arguments = new object[] {
-            "MyKey-FromAction", "MyValue-FromAction", 1}, Order = 1)]
+        [TypeFilter(typeof(ResponseHeaderActionFilter), Arguments = new object[] {"MyKey-FromAction", "MyValue-FromAction", 1}, Order = 1)]
+        [TypeFilter(typeof(PersonsListResultFilter))]
         public async Task<IActionResult> Index(string searchBy, string searchString, string sortBy = nameof(PersonResponse.PersonName), SortOrderOptions sortOrder = SortOrderOptions.ASC) {
             _logger.LogInformation("Index action method of PersonsController");
             _logger.LogDebug($"searchBy: {searchBy}, searchString: {searchString}, sortBy: {sortBy}, sortOrder: {sortOrder}");
