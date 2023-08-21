@@ -1,4 +1,5 @@
-﻿using CRUDExample.Filters.ActionFilters;
+﻿using CRUDExample.Filters;
+using CRUDExample.Filters.ActionFilters;
 using CRUDExample.Filters.AuthorizationFilter;
 using CRUDExample.Filters.ExceptionFilters;
 using CRUDExample.Filters.ResourceFilters;
@@ -15,6 +16,8 @@ namespace CRUDExample.Controllers {
     [TypeFilter(typeof(ResponseHeaderActionFilter), Arguments = new object[] {
             "MyKey-FromController","MyValue-FromController" ,3}, Order = 3)]
     [TypeFilter(typeof(HandleExceptionFilter))]
+    [TypeFilter(typeof(PersonsAlwaysRunResultFilter))]
+
     public class PersonsController : Controller {
         //private fields
         private readonly IPersonsService _personsService;
@@ -28,9 +31,10 @@ namespace CRUDExample.Controllers {
 
         [Route("[action]")]
         [Route("/")]
-        [TypeFilter(typeof(PersonsListActionFilter), Order = 4)]
+        [ServiceFilter(typeof(PersonsListActionFilter), Order = 4)]
         [TypeFilter(typeof(ResponseHeaderActionFilter), Arguments = new object[] {"MyKey-FromAction", "MyValue-FromAction", 1}, Order = 1)]
         [TypeFilter(typeof(PersonsListResultFilter))]
+        [SkipFilter]
         public async Task<IActionResult> Index(string searchBy, string searchString, string sortBy = nameof(PersonResponse.PersonName), SortOrderOptions sortOrder = SortOrderOptions.ASC) {
             _logger.LogInformation("Index action method of PersonsController");
             _logger.LogDebug($"searchBy: {searchBy}, searchString: {searchString}, sortBy: {sortBy}, sortOrder: {sortOrder}");
@@ -87,7 +91,7 @@ namespace CRUDExample.Controllers {
 
         [Route("[action]/{personId}")]
         [HttpGet]
-        [TypeFilter(typeof(TokenResultFilter))]
+        //[TypeFilter(typeof(TokenResultFilter))]
         public async Task<IActionResult> Edit(Guid personId) {
             PersonResponse? personResponse = await _personsService.GetPersonByPersonId(personId);
             if (personResponse == null) {
