@@ -8,9 +8,11 @@ using ServiceContracts.DTO;
 namespace CRUDExample.Filters.ActionFilters {
     public class PersonCreateAndEditPostActionFilter : IAsyncActionFilter {
         private readonly ICountriesService _countriesService;
+        private readonly ILogger<PersonCreateAndEditPostActionFilter> _logger;
 
-        public PersonCreateAndEditPostActionFilter(ICountriesService countriesService) {
+        public PersonCreateAndEditPostActionFilter(ICountriesService countriesService, ILogger<PersonCreateAndEditPostActionFilter> logger) {
             _countriesService = countriesService;
+            _logger = logger;
         }
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next) {
@@ -28,6 +30,7 @@ namespace CRUDExample.Filters.ActionFilters {
             } else {
                 await next();
             }
+            _logger.LogInformation("In after logic of PersonsCreateAndEdit Action filter");
         }
     }
 }
