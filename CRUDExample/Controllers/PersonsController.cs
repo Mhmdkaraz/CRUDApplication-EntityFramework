@@ -13,8 +13,9 @@ using ServiceContracts.Enums;
 
 namespace CRUDExample.Controllers {
     [Route("[controller]")]
-    [TypeFilter(typeof(ResponseHeaderActionFilter), Arguments = new object[] {
-            "MyKey-FromController","MyValue-FromController" ,3}, Order = 3)]
+    //[TypeFilter(typeof(ResponseHeaderActionFilter), Arguments = new object[] {
+    //        "MyKey-FromController","MyValue-FromController" ,3}, Order = 3)]
+    [ResponseHeaderFilterFactory("MyKey-FromController", "MyValue-FromController", 3)]
     [TypeFilter(typeof(HandleExceptionFilter))]
     [TypeFilter(typeof(PersonsAlwaysRunResultFilter))]
 
@@ -35,7 +36,7 @@ namespace CRUDExample.Controllers {
         //[TypeFilter(typeof(ResponseHeaderActionFilter), Arguments = new object[] {"MyKey-FromAction", "MyValue-FromAction", 1}, Order = 1)]
         [TypeFilter(typeof(PersonsListResultFilter))]
         [SkipFilter]
-        [ResponseHeaderActionFilter("MyKey-FromAction", "MyValue-FromAction", 1)]
+        [ResponseHeaderFilterFactory("MyKey-FromAction", "MyValue-FromAction", 1)]
         public async Task<IActionResult> Index(string searchBy, string searchString, string sortBy = nameof(PersonResponse.PersonName), SortOrderOptions sortOrder = SortOrderOptions.ASC) {
             _logger.LogInformation("Index action method of PersonsController");
             _logger.LogDebug($"searchBy: {searchBy}, searchString: {searchString}, sortBy: {sortBy}, sortOrder: {sortOrder}");
@@ -64,7 +65,7 @@ namespace CRUDExample.Controllers {
         [HttpGet]
         //[TypeFilter(typeof(ResponseHeaderActionFilter), Arguments = new object[] {
         //    "MyKey-FromAction","MyValue-FromAction",4 })]
-        [ResponseHeaderActionFilter("MyKey-FromAction", "MyValue-FromAction", 4)]
+        [ResponseHeaderFilterFactory("MyKey-FromAction", "MyValue-FromAction", 4)]
 
         public async Task<IActionResult> Create() {
             List<CountryResponse> countries = await _countriesService.GetAllCountries();
