@@ -2,10 +2,24 @@
 @{
     ViewBag.Title = "Edit Person";
 }
-<a asp-controller="Persons" asp-action="Index" class="link-hover">Back to Persons List</a>
-<h2>Edit Person</h2>
+<div class="flex">
+    <div class="flex-1">
+        <div class="text-grey">
+            <span class="text-grey">Contacts</span>
+            <i class="fa-solid fa-caret-right"></i>
+            <span class="text-grey">Persons</span>
+            <i class="fa-solid fa-caret-right"></i>
+            <span class="text-grey">Edit</span>
+        </div>
 
-<div class="center-box">
+    </div>
+</div>
+
+
+
+<div class="form-container">
+    <a asp-controller="Persons" asp-action="Index" class="link-hover">Back to Persons List</a>
+    <h2 class="text-large">Edit Person</h2>
     <form asp-controller="Persons" asp-action="Edit" method="post">
         <input type="hidden" asp-for="PersonId" />
         @*PersonName*@
@@ -110,5 +124,4 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" asp-fallback-test="window.jQuery" asp-fallback-src="~/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.4/jquery.validate.min.js" asp-fallback-test="window.jQuery.validator" asp-fallback-src="~/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" asp-fallback-test="window.jQuery.validator.unobtrusive" asp-fallback-src="jquery.validate.unobtrusive.min.js"></script>
-
 }
