@@ -32,9 +32,10 @@ namespace CRUDExample.Controllers {
         [Route("[action]")]
         [Route("/")]
         [ServiceFilter(typeof(PersonsListActionFilter), Order = 4)]
-        [TypeFilter(typeof(ResponseHeaderActionFilter), Arguments = new object[] {"MyKey-FromAction", "MyValue-FromAction", 1}, Order = 1)]
+        //[TypeFilter(typeof(ResponseHeaderActionFilter), Arguments = new object[] {"MyKey-FromAction", "MyValue-FromAction", 1}, Order = 1)]
         [TypeFilter(typeof(PersonsListResultFilter))]
         [SkipFilter]
+        [ResponseHeaderActionFilter("MyKey-FromAction", "MyValue-FromAction", 1)]
         public async Task<IActionResult> Index(string searchBy, string searchString, string sortBy = nameof(PersonResponse.PersonName), SortOrderOptions sortOrder = SortOrderOptions.ASC) {
             _logger.LogInformation("Index action method of PersonsController");
             _logger.LogDebug($"searchBy: {searchBy}, searchString: {searchString}, sortBy: {sortBy}, sortOrder: {sortOrder}");
@@ -61,8 +62,10 @@ namespace CRUDExample.Controllers {
         //Executes when the user clicks on "Create Person" hyperlink (while opening the create view)
         [Route("[action]")]
         [HttpGet]
-        [TypeFilter(typeof(ResponseHeaderActionFilter), Arguments = new object[] {
-            "MyKey-FromAction","MyValue-FromAction",4 })]
+        //[TypeFilter(typeof(ResponseHeaderActionFilter), Arguments = new object[] {
+        //    "MyKey-FromAction","MyValue-FromAction",4 })]
+        [ResponseHeaderActionFilter("MyKey-FromAction", "MyValue-FromAction", 4)]
+
         public async Task<IActionResult> Create() {
             List<CountryResponse> countries = await _countriesService.GetAllCountries();
             ViewBag.Countries = countries.Select(temp => new SelectListItem() {
