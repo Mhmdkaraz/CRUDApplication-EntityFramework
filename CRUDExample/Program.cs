@@ -8,6 +8,7 @@ using Services;
 using Serilog;
 using CRUDExample.Filters.ActionFilters;
 using CRUDExample.StartupExtensions;
+using CRUDExample.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,8 +30,12 @@ builder.Services.ConfigureServices(builder.Configuration);
 
 var app = builder.Build();
 app.UseSerilogRequestLogging();
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment()) {
     app.UseDeveloperExceptionPage();
+} else {
+    app.UseExceptionHandlingMiddleware();
+}
+    
 
 app.UseHttpLogging();
 //app.Logger.LogDebug("debug-message");
