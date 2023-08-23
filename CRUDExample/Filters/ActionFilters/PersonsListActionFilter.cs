@@ -57,7 +57,7 @@ namespace CRUDExample.Filters.ActionFilters {
                         nameof(PersonResponse.Email),
                         nameof(PersonResponse.DateOfBirth),
                         nameof(PersonResponse.Gender),
-                        nameof(PersonResponse.Country),
+                        nameof(PersonResponse.CountryId),
                         nameof(PersonResponse.Address)
                     };
                     //reset the searchBY parameter value
