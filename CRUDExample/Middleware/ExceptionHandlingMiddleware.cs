@@ -29,9 +29,9 @@ namespace CRUDExample.Middleware {
                 } else {
                     _logger.LogError("{ExeptionType}-{ExceptionMessage}", ex.GetType().ToString(), ex.Message);
                 }
-                httpContext.Response.StatusCode = 500;
-                httpContext.Response.WriteAsync("Error occured");
-
+                //httpContext.Response.StatusCode = 500;
+                //httpContext.Response.WriteAsync("Error occured");
+                throw;
             }
 
         }
