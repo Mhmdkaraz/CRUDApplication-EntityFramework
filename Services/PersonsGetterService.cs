@@ -34,7 +34,7 @@ namespace Services {
 
 
 
-        public async Task<List<PersonResponse>> GetAllPersons() {
+        public virtual async Task<List<PersonResponse>> GetAllPersons() {
             _logger.LogInformation("GetAllPersons of PersonsService");
             var persons = await _personsRepository.GetAllPersons();
             return persons.Select(person => person.ToPersonResponse()).ToList();
@@ -42,7 +42,7 @@ namespace Services {
             //_db.Persons.ToList().Select(person => ConvertPersonToPersonResponse(person)).ToList();
         }
 
-        public async Task<PersonResponse?> GetPersonByPersonId(Guid? personId) {
+        public virtual async Task<PersonResponse?> GetPersonByPersonId(Guid? personId) {
             if (personId == null)
                 return null;
             Person? person = await _personsRepository.GetPersonByPersonId(personId.Value);
@@ -51,7 +51,7 @@ namespace Services {
             return person.ToPersonResponse();
         }
 
-        public async Task<List<PersonResponse>> GetFilteredPersons(string searchBy, string? searchString) {
+        public virtual async Task<List<PersonResponse>> GetFilteredPersons(string searchBy, string? searchString) {
             _logger.LogInformation("GetFilteredPersons of PersonsService");
             List<Person> persons;
             using (Operation.Time("Time for Filtered Persons from Database")) {
@@ -95,7 +95,7 @@ namespace Services {
 
         //    return matchingPersons;
         //}
-        public async Task<MemoryStream> GetPersonCSV() {
+        public virtual async Task<MemoryStream> GetPersonCSV() {
             MemoryStream memoryStream = new MemoryStream();
             //writes the content into the memory stream
             StreamWriter streamWriter = new StreamWriter(memoryStream);
@@ -142,7 +142,7 @@ namespace Services {
             return memoryStream;
         }
 
-        public async Task<MemoryStream> GetPersonsExcel() {
+        public virtual async Task<MemoryStream> GetPersonsExcel() {
             //epplussoftware.com/docs
             MemoryStream memoryStream = new MemoryStream();
             using (ExcelPackage excelPackage = new ExcelPackage(memoryStream)) {
