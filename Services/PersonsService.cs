@@ -1,6 +1,7 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
 using Entities;
+using Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
@@ -182,7 +183,7 @@ namespace Services {
             //get matching person object to update
             Person? matchingPerson = await _personsRepository.GetPersonByPersonId(personUpdateRequest.PersonId);
             if (matchingPerson == null)
-                throw new ArgumentException("Given person id doesn't exist");
+                throw new InvalidPersonIdException("Given person id doesn't exist");
             ////update all details
             matchingPerson.PersonName = personUpdateRequest.PersonName;
             matchingPerson.Email = personUpdateRequest.Email;
