@@ -7,10 +7,10 @@ using ServiceContracts.DTO;
 
 namespace CRUDExample.Filters.ActionFilters {
     public class PersonCreateAndEditPostActionFilter : IAsyncActionFilter {
-        private readonly ICountriesService _countriesService;
+        private readonly ICountriesGetterService _countriesService;
         private readonly ILogger<PersonCreateAndEditPostActionFilter> _logger;
 
-        public PersonCreateAndEditPostActionFilter(ICountriesService countriesService, ILogger<PersonCreateAndEditPostActionFilter> logger) {
+        public PersonCreateAndEditPostActionFilter(ICountriesGetterService countriesService, ILogger<PersonCreateAndEditPostActionFilter> logger) {
             _countriesService = countriesService;
             _logger = logger;
         }

@@ -4,10 +4,10 @@ using ServiceContracts;
 namespace CRUDExample.Controllers {
     [Route("[controller]")]
     public class CountriesController : Controller {
-        private readonly ICountriesService _countriesService;
+        private readonly ICountriesUploaderService _countriesUplaoderService;
 
-        public CountriesController(ICountriesService countriesService) {
-            _countriesService = countriesService;
+        public CountriesController(ICountriesUploaderService countriesUplaoderService) {
+            _countriesUplaoderService = countriesUplaoderService;
         }
         [Route("[action]")]
         [HttpGet]
@@ -25,7 +25,7 @@ namespace CRUDExample.Controllers {
                 ViewBag.ErrorMessage = "Unsupported file. 'xlsx' file is expected";
                 return View();
             }
-            int countriesCountInserted = await _countriesService.UploadCountriesFromExcelFile(excelFile);
+            int countriesCountInserted = await _countriesUplaoderService.UploadCountriesFromExcelFile(excelFile);
             ViewBag.Message = $"{countriesCountInserted} Countries Uploaded";
             return View();
 

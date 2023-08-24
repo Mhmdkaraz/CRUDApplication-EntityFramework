@@ -24,7 +24,10 @@ namespace CRUDExample.StartupExtensions {
             });
             //add services into Ioc Container
 
-            services.AddScoped<ICountriesService, CountriesService>();
+            services.AddScoped<ICountriesGetterService, CountriesGetterService>();
+            services.AddScoped<ICountriesAdderService, CountriesAdderService>();
+            services.AddScoped<ICountriesUploaderService, CountriesUploaderService>();
+
             services.AddScoped<IPersonsGetterService, PersonsGetterServiceWithFewExcelFields>();
             //services.AddScoped<IPersonsGetterService, PersonsGetterServiceChild>();
             services.AddScoped<PersonsGetterService, PersonsGetterService>();

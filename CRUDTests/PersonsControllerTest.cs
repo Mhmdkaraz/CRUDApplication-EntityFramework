@@ -23,7 +23,7 @@ namespace CRUDTests {
         private readonly IPersonsSorterService _personsSorterService;
         private readonly IPersonsUpdaterService _personsUpdaterService;
         private readonly IPersonsDeleterService _personsDeleterService;
-        private readonly ICountriesService _countriesService;
+        private readonly ICountriesGetterService _countriesService;
         private readonly ILogger<PersonsController> _logger;
         private readonly Mock<ILogger<PersonsController>> _loggerMock;
 
@@ -33,7 +33,7 @@ namespace CRUDTests {
         private readonly Mock<IPersonsUpdaterService> _personsUpdaterServiceMock;
         private readonly Mock<IPersonsDeleterService> _personsDeleterServiceMock;
 
-        private readonly Mock<ICountriesService> _countriesServiceMock;
+        private readonly Mock<ICountriesGetterService> _countriesServiceMock;
         private readonly IFixture _fixture;
         public PersonsControllerTest() {
             _fixture = new Fixture();
@@ -42,7 +42,7 @@ namespace CRUDTests {
             _personsSorterServiceMock = new Mock<IPersonsSorterService>();
             _personsUpdaterServiceMock = new Mock<IPersonsUpdaterService>();
             _personsDeleterServiceMock = new Mock<IPersonsDeleterService>();
-            _countriesServiceMock = new Mock<ICountriesService>();
+            _countriesServiceMock = new Mock<ICountriesGetterService>();
             _loggerMock = new Mock<ILogger<PersonsController>>();
             _personsGetterService = _personsGetterServiceMock.Object;
             _personsAdderService = _personsAdderServiceMock.Object;

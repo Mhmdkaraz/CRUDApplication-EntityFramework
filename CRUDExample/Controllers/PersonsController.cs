@@ -26,14 +26,14 @@ namespace CRUDExample.Controllers {
         private readonly IPersonsSorterService _personsSorterService;
         private readonly IPersonsUpdaterService _personsUpdaterService;
         private readonly IPersonsDeleterService _personsDeleterService;
-        private readonly ICountriesService _countriesService;
+        private readonly ICountriesGetterService _countriesService;
         private readonly ILogger<PersonsController> _logger;
         public PersonsController(IPersonsGetterService personsGetterService,
                 IPersonsAdderService personsAdderService,
                 IPersonsUpdaterService personsUpdaterService,
                 IPersonsSorterService personsSorterService,
                 IPersonsDeleterService personsDeleterService,
-                ICountriesService countriesService,
+                ICountriesGetterService countriesService,
                 ILogger<PersonsController> logger) {
             _personsGetterService = personsGetterService;
             _personsAdderService = personsAdderService;
